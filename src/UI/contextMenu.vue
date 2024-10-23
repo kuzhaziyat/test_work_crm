@@ -49,7 +49,7 @@
   });
 </script>
 <template>
-  <div class="context-menu" ref="context" v-if="display" :style="{ top: Y + 'px', left: X + 'px' }" tabindex="0" @blur="close()">
+  <div class="context-menu" ref="context" v-if="display" :style="{ top: Y + 'px', left: X + 'px' }" tabindex="0">
     <slot></slot>
   </div>
 </template>

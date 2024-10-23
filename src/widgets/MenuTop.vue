@@ -5,10 +5,14 @@
   const props = defineProps<{
     isOpen: boolean;
   }>();
+  const isProjectListOpen = ref(false);
+
   const emit = defineEmits(["open"]);
   const valContext = ref("");
   const topContext = ref(0);
   const leftContext = ref(0);
+  const showFolder1 = ref(false);
+  const showFolder2 = ref(false);
   const showContext = ref(false);
   function contextOpen(e: MouseEvent) {
     topContext.value = e.pageY || e.clientY;
@@ -28,19 +32,36 @@
     <div class="header">
       <img class="open-menu" v-if="!isOpen" :src="require(`@/assets/icons/menuIcon.svg`)" @click="$emit('open')" />
       <div class="project-info">
-        <div>Проект 1</div>
+        <div>
+          <b
+            @click="
+              contextOpen($event);
+              valContext = 'project';
+            "
+          >
+            Проект 1
+            <div>
+              <svg v-if="!showContext" width="6" height="4" viewBox="0 0 6 4" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M5.57143 3.74669e-08C5.65102 3.05089e-08 5.72904 0.0206857 5.79674 0.0597396C5.86445 0.0987935 5.91916 0.154672 5.95475 0.221115C5.99035 0.287557 6.00542 0.361938 5.99827 0.435922C5.99112 0.509907 5.96204 0.580572 5.91429 0.64L3.34286 3.84C3.30294 3.88968 3.25117 3.93 3.19166 3.95777C3.13215 3.98554 3.06653 4 3 4C2.93347 4 2.86785 3.98554 2.80834 3.95777C2.74883 3.93 2.69706 3.88968 2.65714 3.84L0.085716 0.640001C0.0379617 0.580573 0.00888031 0.509907 0.00173251 0.435923C-0.00541528 0.361938 0.00965324 0.287557 0.0452472 0.221115C0.0808412 0.154673 0.135555 0.098794 0.203259 0.0597401C0.270963 0.0206862 0.348982 4.94028e-07 0.428573 4.8707e-07L5.57143 3.74669e-08Z"
+                  fill="currentColor"
+                />
+              </svg>
+              <svg v-else width="6" height="4" viewBox="0 0 6 4" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M0.428388 4C0.348798 4 0.270779 3.97931 0.203075 3.94026C0.135371 3.90121 0.0806566 3.84533 0.0450625 3.77889C0.00946843 3.71244 -0.00559888 3.63806 0.00154882 3.56408C0.00869653 3.49009 0.0377768 3.41943 0.0855313 3.36L2.65696 0.16C2.69688 0.110322 2.74864 0.0700002 2.80815 0.0422291C2.86766 0.014458 2.93328 0 2.99982 0C3.06635 0 3.13197 0.014458 3.19148 0.0422291C3.25099 0.0700002 3.30275 0.110322 3.34267 0.16L5.9141 3.36C5.96186 3.41943 5.99094 3.49009 5.99809 3.56408C6.00523 3.63806 5.99016 3.71244 5.95457 3.77889C5.91898 3.84533 5.86426 3.90121 5.79656 3.94026C5.72885 3.97931 5.65084 4 5.57124 4L0.428388 4Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+          </b>
+        </div>
         <div>
           <img class="update-but" :src="require(`@/assets/icons/Button.svg`)" />
           <p>Обновлено 18.10.2024 в 10:11</p>
         </div>
       </div>
-      <button
-        class="create-project"
-        @click="
-          contextOpen($event);
-          valContext = 'project';
-        "
-      >
+      <button class="create-project">
         <img :src="require(`@/assets/icons/PlusIcon.svg`)" />
         Новый проект
       </button>
@@ -56,7 +77,35 @@
     </div>
   </div>
   <contextMenu class="contextMenu" :display="showContext" :top="topContext" :left="leftContext" @close="contextClose">
-    <div v-if="valContext === 'project'">sss</div>
+    <div v-if="valContext === 'project'" class="listProject">
+      <ul v-if="isOpen" class="dropdown-menu navigation__links">
+        <li>
+          <a @click="showFolder1 = !showFolder1"> Папка 1</a>
+          <ul v-if="isOpen" v-show="showFolder1" class="dropdown-menu">
+            <li>
+              <router-link :to="{ name: 'requestsWebMaster' }">Проект 1</router-link>
+            </li>
+            <li>
+              <router-link :to="{ name: 'urlWebMaster' }">Проект 2</router-link>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a @click="showFolder2 = !showFolder2">Папка 2</a>
+          <ul v-if="isOpen" v-show="showFolder2" class="dropdown-menu">
+            <li>
+              <router-link :to="{ name: 'requestsWebMaster' }">Проект 1</router-link>
+            </li>
+            <li>
+              <router-link :to="{ name: 'urlWebMaster' }">Проект 2</router-link>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <router-link :to="{ name: 'urlWebMaster' }">Проект 3</router-link>
+        </li>
+      </ul>
+    </div>
     <div v-else-if="valContext === 'account'">
       <ul class="navigation__links">
         <li>
@@ -138,6 +187,19 @@
       display: flex;
       gap: 8px;
       align-items: center;
+      & b {
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        &:hover {
+          color: #0076f5;
+          cursor: pointer;
+        }
+        & div {
+          width: 16px;
+          justify-content: center;
+        }
+      }
     }
   }
   .create-project {
@@ -173,6 +235,9 @@
     padding: 0;
     margin: 0;
     text-align: center;
+    & ul {
+      margin: 0;
+    }
     & hr {
       margin: 8px 0 8px 0;
       width: 100%;
