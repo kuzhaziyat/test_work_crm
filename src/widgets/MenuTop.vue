@@ -30,7 +30,7 @@
       <div class="project-info">
         <div>Проект 1</div>
         <div>
-          <img class="open-menu" :src="require(`@/assets/icons/Button.svg`)" />
+          <img class="update-but" :src="require(`@/assets/icons/Button.svg`)" />
           <p>Обновлено 18.10.2024 в 10:11</p>
         </div>
       </div>
@@ -121,20 +121,23 @@
   }
   .open-menu {
     cursor: pointer;
+  }
+  .update-but {
+    cursor: pointer;
+    height: 32px;
+    border-radius: 4px;
     &:hover {
-      transform: scale(1.1);
-      transition: 0.1s;
-    }
-    &:active {
-      transform: scale(0.9);
-      transition: 0.1s;
+      background-color: #f2f8fe;
     }
   }
   .project-info {
     display: flex;
     gap: 16px;
+    align-items: center;
     & div {
       display: flex;
+      gap: 8px;
+      align-items: center;
     }
   }
   .create-project {
@@ -151,10 +154,6 @@
     &:hover {
       background-color: #dfefff;
     }
-    &:active {
-      transform: scale(0.9);
-      transition: 0.1s;
-    }
   }
   .account-but {
     cursor: pointer;
@@ -162,10 +161,6 @@
     &:hover {
       border-radius: 4px;
       background-color: #f2f8fe;
-    }
-    &:active {
-      transform: scale(0.9);
-      transition: 0.1s;
     }
   }
   .exit-but {

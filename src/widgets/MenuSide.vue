@@ -21,7 +21,6 @@
 </template>
 <style scoped lang="scss">
   .content {
-    width: 19.23vw;
     height: calc(100vh - 40px);
     padding: 20px;
     display: flex;
@@ -37,10 +36,7 @@
     justify-content: space-between;
     & img {
       cursor: pointer;
-      &:hover {
-        transform: scale(1.1);
-        transition: 0.1s;
-      }
+
       &:active {
         transform: scale(0.9);
         transition: 0.1s;

@@ -65,5 +65,7 @@
     z-index: 999;
     border: 1px solid #e5e5ea;
     border-radius: 8px;
+    box-shadow: -5px 5px 15px -10px #8d8d8d99;
+    outline: none;
   }
 </style>

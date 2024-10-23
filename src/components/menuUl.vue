@@ -162,9 +162,7 @@
         align-items: center;
         gap: 8px;
         transition: transform 0.2s ease;
-        &:active {
-          transform: scale(0.95);
-        }
+
         & p {
           margin: 0;
         }
